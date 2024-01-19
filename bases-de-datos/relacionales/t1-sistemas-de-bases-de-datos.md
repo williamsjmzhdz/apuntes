@@ -155,7 +155,7 @@ Un sistema de bases de datos está integrado por los siguientes elementos.
   - Usuario final
   - Rol asociado con la base de datos (ver siguiente tabla).
 
-# 1.7 Metodologías de diseño de bases de datos
+# 1.7 Metodología de diseño de bases de datos
 
 Para realizar el correcto diseño de una base de datos se requiere del uso de una metodología que permite identificar las diferentes etapas, así como las diferentes herramientas a utilizar. Una de las principales metodologías se ilustra en el siguiente diagrma.
 
