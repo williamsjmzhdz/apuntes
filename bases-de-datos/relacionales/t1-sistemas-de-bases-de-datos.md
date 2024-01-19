@@ -140,3 +140,52 @@ La integridad de datos es una condición en la cual todos los datos de una base 
 ## 1.4.4. La Redundancia no Siempre es Negativa
 
 En ocasiones, se permite cierto nivel de redundancia siempre y cuando se implemente un control adecuado para prevenir inconsistencias. La existencia de cierta redundancia puede ser justificada por razones de rendimiento. Si se normaliza excesivamente las tablas para eliminar la redundancia, puede impactar negativamente el rendimiento de la base de datos al requerir operaciones de join costosas cada vez que se consulten datos. En estos casos, se busca un equilibrio entre normalización y rendimiento.
+
+# 1.6 Sistema de bases de datos
+
+Un sistema de bases de datos está integrado por los siguientes elementos.
+
+- Hardware (servidores, servidores de almacenamiento, componentes de red).
+- Software
+  - Sistemas operativos (MacOS, Windows, Fedora, Ubuntu, Mint, Oracle Linux, etc.)
+  - DBMS (PostgreSQL, MySQL, MariaDB, Oracle, etc.).
+  - Programas de utilería, administración, monitoreo, etc.
+- Personal
+  - Administradores del S.O.
+  - Usuario final
+  - Rol asociado con la base de datos (ver siguiente tabla).
+
+# 1.7 Metodologías de diseño de bases de datos
+
+Para realizar el correcto diseño de una base de datos se requiere del uso de una metodología que permite identificar las diferentes etapas, así como las diferentes herramientas a utilizar. Una de las principales metodologías se ilustra en el siguiente diagrma.
+
+- **Especificación de requerimientos**
+
+  - Análisis
+  - Reglas de negocio
+  - Entrevistas con el usuario
+
+- **Diseño conceptual**
+
+  - Independiente a tecnologías, hw, sw y al modelo de datos (relacional, no relacional, POO, etc.)
+  - Formato Chen
+  - Elementos de un modelo de datos
+  - Artefacto producido:
+    - **Modelo Entidad Relación (MER)**
+
+- **Diseño lógico**
+
+  - Dependiente del modelo de datos
+  - Independiente al DBMS
+  - Formato Crow's foot
+  - Formato IDEF1X
+  - Normalización
+  - Conceptos del Modelo Relacional
+  - Artefacto producido:
+    - **Modelo Relacional (MR)**
+
+- **Diseño físico**
+  - Dependiente del DBMS
+  - Requerimientos no funcionales
+  - Artefacto producido:
+    - **Esquema físico**
