@@ -73,11 +73,11 @@ Algunos ejemplos comunes de almacenamiento no volátil son los discos duros (HDD
 
 ## 2.3.1. Funcionalidades principales
 
-- **Retención de datos:** La características más destacada del almacenamiento en disco es su capacidad para retener datos a largo plazo incluso cuando el dispositivo está apagado. Esto contrasta con la memoria RAM, que pierde su contenido cuando se corta la alimentación.
+- **Retención de datos:** La característica más destacada del almacenamiento en disco es su capacidad para retener datos a largo plazo incluso cuando el dispositivo está apagado. Esto contrasta con la memoria RAM, que pierde su contenido cuando se corta la alimentación.
 
 - **Almacenamiento a largo plazo:** Estos dispositivos son ideales para almacenar grandes cantidades de datos de manera persistente, como sistemas operativos, programas de software, archivos multimedia y documentos.
 
-- **Arranque del S.O:** El sistema operativo y otros programas esenciales se cargan desde el almacenamiento volátil durante el proceso de arranque de la computadora. Esto permite que la máquina inicie desde un estado apagado y ejecute programas sin necesidad de volver a cargarlos/instalarlos cada vez.
+- **Arranque del S.O:** El sistema operativo y otros programas esenciales se cargan desde el almacenamiento no volátil durante el proceso de arranque de la computadora. Esto permite que la máquina inicie desde un estado apagado y ejecute programas sin necesidad de volver a cargarlos/instalarlos cada vez.
 
 - **Almacenamiento de datos de usuario:** Además de contener el S.O, el almacenamiento en disco se utiliza para almacenar datos de usuario, como documentos, fotos, videos y otros archivos. Estos datos permanecen intactos incluso después de apagar la computadora.
 
@@ -111,3 +111,22 @@ Algunos ejemplos comunes de almacenamiento no volátil son los discos duros (HDD
 - **Vida útil:**
   - **HDD:** Puede tener una vida útil más larga en términos de ciclos de escritura y reescritura.
   - **SSD:** Aunque la tecnología ha mejorado, los SSD pueden tener limitaciones en el número de ciclos de escritura, pero su vida útil es suficiente para un uso típico.
+
+# 3. Operaciones en estructuras de datos
+
+Como sabemos, las estructuras de datos son colecciones de datos organizadas y estructuras para hacer más eficiente la manipulación de datos de acuerdo a la naturaleza de un problema a resolver.
+
+La manipulación de datos se refiere a ejecutar operaciones sobre los datos almacenados en una estructura de datos. Las operaciones más comunes son:
+
+- **Acceso:** Acceder a un dato específico de una colección de datos.
+- **Inserción:** Agregar un nuevo dato a una estructura de datos.
+- **Eliminación:** Eliminar un dato de la estructura de datos.
+- **Recorrer:** Acceder a cada dato de la estructura de datos exactamente una vez con el objetivo de procesarlo.
+- **Búsqueda:** Encontrar la locación de un dato en la estructura de datos.
+- **Ordenamiento:** Ordenar de acuerdo a un criterio, los datos dentro de la estructura de datos.
+
+## 3.1. Inserción
+
+Agregar un nuevo dato a una estructura de datos.
+
+## 3.2.
