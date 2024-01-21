@@ -124,9 +124,3 @@ La manipulación de datos se refiere a ejecutar operaciones sobre los datos alma
 - **Recorrer:** Acceder a cada dato de la estructura de datos exactamente una vez con el objetivo de procesarlo.
 - **Búsqueda:** Encontrar la locación de un dato en la estructura de datos.
 - **Ordenamiento:** Ordenar de acuerdo a un criterio, los datos dentro de la estructura de datos.
-
-## 3.1. Inserción
-
-Agregar un nuevo dato a una estructura de datos.
-
-## 3.2.
