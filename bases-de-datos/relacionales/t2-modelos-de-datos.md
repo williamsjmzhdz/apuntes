@@ -180,28 +180,63 @@ A continuación se muestra la solución por pasos.
 
 ```text
 1.- Generar la lista de entidades candidatas
-- región
-- ciudad
-- sucursal
-- gerente *
-- agente de ventas *
-- cliente
-- ingeniero mecánico *
-- agente
-- empleado **
-- auto
-- servicio de mantenimiento
-- mantenimiento
-- renta
-- factura
-- asesor *
+- Región
+- Ciudad
+- Sucursal
+- Gerente *
+- Agente de ventas *
+- Cliente
+- Ingeniero mecánico *
+- Agente
+- Empleado **
+- Auto
+- Servicio de mantenimiento
+- Mantenimiento
+- Renta
+- Factura
+- Asesor *
 
 2.- Descartar entidades con base en duplicados, cardinalidad, roles y ambiguedades.
-
 Descartadas
-- Mantenimiento: por duplicado y ambiguedad.
+- Mantenimiento: por duplicado y ambiguedad con Servicio de mantenimiento.
+- Agente de ventas, gerente y agente: por redundancia y rol de la entidad Empleado sin atributos propios.
+- Ingeniero mecánico: por rol de la entidad Empleado sin atributos propios.
+- Asesor: no se menciona en el caso de estudio.
+- Región: porque tiene más la estructura de un atributo; como entidad tendría pocas instancias y un solo atributo. Sus posibles valores son pocos (A, B y C) y de un solo caracter.
+- Auto: porque no se mencionan atributos de interes ni relaciones.
+
 
 Remanentes
+- Sucursal: porque está relacionada con Región, Ciudad, Empleado.
+- Cliente: porque el caso de estudio detalla atributos de interés del Cliente.
+- Factura: porque el caso de estudio detalla atributos de interés de la Factura.
+- Ciudad: porque tiene al menos dos atributos: nombre y región.
+- Renta: porque el caso de estudio detalla atributos de interés de la Renta.
+- Servicio de mantenimiento: Porque tiene al menos 2 atributos (tipo de servicio y empleado [hasta 3]), además, está relacionada con la entidad Empleado.
+
+3.- Detectar reglas de negocio
+- Un empleado puede ser gerente de una sucursal como máximo.
+- Una renta incluye hasta tres autos.
+- Un auto en servicio de mantenimiento no puede ser rentado.
+- En una sucursal existen hasta tres ingenieros mecánicos.
+- Un empleado no puede rentar autos.
+- Un auto debe recibir servicio de mantenimiento cada tres meses
+- Un empleado agente puede laborar en una o en más sucursales.
+- Cada renta genera su correspondiente factura.
+- En una ciudad pueden existir varias sucursales.
+- Un auto es asignado a una sola sucursal
+
+4.- Detectar relaciones entre entidades con base en las reglas de negocio.
+Sucursal - Empleado (gerente): Una sucursal cuenta con un gerente y un gerente administra una sola sucursal. (1:1)
+Ciudad - Sucursal: En una ciudad pueden existir varias sucursales y una sucursal pertenece a una sola ciudad (1:m)
+Renta - Auto: Una renta puede incluir hasta tres autos y un auto puede ser rentado varias veces de manera no simultánea. (m:n)
+Factura - Renta: Una factura se genera por cada renta y una renta genera una sola factura: (1:1)
+Factura - Cliente:
+Sucursal - Auto: Una sucursal puede tener varios autos y un auto pertenece a una sucursal. (1:m)
+Servicio de mantenimiento - Auto: Un auto puede recibir varios servicios de mantenimiento en el tiempo y un servicio de mantenimiento se realiza a un solo auto (1:m)
+Empleado (ing) - Servicio de mantenimiento: Un ingeniero mecánico puede realizar varios servicios de mantenimiento a lo largo del tiempo y un servicio de mantenimiento puede ser realizado por un solo ingeniero mecánico.
+Sucursal - Empleado (agente): En una sucursal laboran varios agentes de ventas y un agente de ventas puede laborar en varias sucursales. (m:n)
+Cliente - Renta: Un cliente puede rentar varias veces y una renta es solicitada por un solo cliente. (1:m)
 ```
 
-NOTA: Me quedé analizando la entidad empleado y sus posibles roles.
+NOTA: Me quedé en el minuto 55 de la clase 5.
