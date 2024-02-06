@@ -239,4 +239,18 @@ Sucursal - Empleado (agente): En una sucursal laboran varios agentes de ventas y
 Cliente - Renta: Un cliente puede rentar varias veces y una renta es solicitada por un solo cliente. (1:m)
 ```
 
-NOTA: Me quedé en el minuto 55 de la clase 5.
+# 2.4. Evoluación de los modelos de datos
+
+- 50s < t < 70s: Sistemas de archivos
+- 50s < t < 80s: Modelo jerárquico
+- 60s < t < 90s: Modelo de red
+- 70s < t: Modelo Relacional (RDBMS)
+- 80s < t: Modelo Orientado a Objetos (OODBMS)
+- 90s < t: Modelo Orientado a Objetos / Relacional (ORDBMS)
+  - ORMs (Object Relational Mapping)
+  - Soporte para procesamiento de documentos XML
+  - Soporte para procesamiento de documentos JSON
+  - Bases de datos multidimensionales
+- 2000s < t: Modelos NoSQL
+
+# NOTA: Me quedé en el minuto 46:20 de la clase 6
