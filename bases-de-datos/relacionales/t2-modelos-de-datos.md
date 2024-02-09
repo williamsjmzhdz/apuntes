@@ -253,4 +253,4 @@ Cliente - Renta: Un cliente puede rentar varias veces y una renta es solicitada 
   - Bases de datos multidimensionales
 - 2000s < t: Modelos NoSQL
 
-# NOTA: Me quedé en el minuto 46:20 de la clase 6
+# NOTA: Me quedé en el minuto 27:50 de la clase 7
