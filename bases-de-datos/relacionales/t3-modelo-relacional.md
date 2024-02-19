@@ -16,4 +16,16 @@ La estructura lógica de los datos se basa en los siguientes conceptos:
 - **Grado**: Corresponde al número de atributos de una relación.
 - **Dominio**: Corresponde al rango de valores posibles de un atributo.
 
-## NOTA: Me quedé en la clase 7 minuto: 1:19:16
+## 3.2.1. Tablas
+
+Representa la unidad primaria de almacenamiento y la implementación del concepto de relación. Una tabla generalmente representa a una entidad identificada en el diseño conceptual.
+
+- Cada tupla (registro) representa la ocurrencia de una relación (entidad)
+- Cada columna representa a un atributo de la entidad, y esta debe tener nombre único
+- Los datos de una columna deben ser del mismo tipo de dato.
+- El orden de las columnas es irrelevante.
+- Cada columna tiene un rango de valores (dominio).
+- Una tabla puede contar con una o varias columnas que identifican a un registro de manera única llamada **llave primaria**.
+- Una tabla puede contar con una o más columnas empleadas para relacionarse con otras tablas, llamadas **llaves foráneas**
+
+# NOTA: ME QUEDE EN CLASE 8 MIN. 00:24:06
