@@ -28,4 +28,62 @@ Representa la unidad primaria de almacenamiento y la implementación del concept
 - Una tabla puede contar con una o varias columnas que identifican a un registro de manera única llamada **llave primaria**.
 - Una tabla puede contar con una o más columnas empleadas para relacionarse con otras tablas, llamadas **llaves foráneas**
 
-# NOTA: ME QUEDE EN CLASE 8 MIN. 00:24:06
+# 3.3. Restricciones (constraints)
+
+Las restricciones, como se comentó anteriormente, representan uno de los elementos de un modelo de datos. Para el caso del modelo relacional, se considera la siguiente clasificación.
+
+| Nombre de la restricción y otros elementos | Implementación en un RDBMS |
+| ------------------------------------------ | -------------------------- |
+| Restricciones de llave primaria            | PRIMARY KEY                |
+| Restricciones de referencia                | FOREIGN KEY                |
+| Restricciones de integridad                | CHECK                      |
+|                                            | NULL, NOT NULL             |
+|                                            | UNIQUE                     |
+| Validación por trigger.                    | TRIGGER                    |
+
+## 3.3.1. Restricciones de llave primaria
+
+Una llave primaria (PK) es una columna o conjunto de columnas cuyos(s) valor(es) identifican de manera única a un registro.
+
+El RDBMS implementa esta restricción haciendo uso de los 2 siguientes elementos:
+
+- Un índice tipo UNIQUE.
+- Una restricción de integridad NOT NULL.
+
+Los siguientes puntos permiten identificar a una PK de una tabla:
+
+- Dependencia funcional
+- Consideraciones requeridas
+- Consideraciones opcionales
+- Tipos de llaves primarias
+
+### 3.3.1.1. Dependencia funcional
+
+Consiste en determinar y verficar el o los campos que actuarán como PK.
+
+Definición: El atributo "B" es funcionalmente dependiente de un atributo "A" si cada valor de la columna "A" determina uno y solo un valor de la columna "B". Se expresa: A -> B
+
+De lo anterior, se puede concluir que "A" puede tomar el rol de llave primaria, siempre y cuando A, también pueda determinar el valor de las demás columnas. Es decir: A -> B, C, D, E, ...
+
+### 3.3.1.2. Consideraciones requeridas
+
+La PK debe ser un campo cuyo valor nunca debe ser modificado después de que se ha asignado o almacenado en la BD. Modificar PKs implica modificar los valores de todas las referencias en tablas relacionadas lo que puede puede originar inconsistencias.
+
+Como se mencionó anteriormente, los campos que actúen como PK no deben contener valores nulos, ni tener valores duplicados.
+
+### 3.3.1.3. Consideraciones opcionales
+
+Debido de que el RDBMS asigna un índice único a los campos que actúen como PK, se requiere procesamiento adicional para crear, almacenar y mantener este índice.
+
+El mejor desempeño se obtiene cuando el índice es construido sobre un atributo cuyo tipo de dato es numérico entero, de preferencia, valores consecutivos no duplicados iniciando en 1.
+
+Por lo anterior, si se desea obtener este beneficio, la PK de una tabla puede ser formada por un nuevo atributo que cumpla con estas características. A este tipo de llave primaria se le conoce como llave primaria artificial.
+
+### 3.3.1.4. Tipos de llaves primarias
+
+- **Llave primaria natural:** Son representadas por atributos nativos o propios de una entidad. Un atributo nativo es aquél que tiene significado para las reglas de negiocio del caso de estudio.
+
+- **Llave primaria artificial:** Es representada por un campo que se agrega a una tabla que no tiene significado alguno para las reglas de negocio, su única función es actual como llave primaria que cumple con todos los requisitos anteriores:
+  - Campo numérico, entero y consecutivo (mejora el desempeño del índice).
+  - Valores únicos y no nulos.
+  - Su valor nunca es modificado.
