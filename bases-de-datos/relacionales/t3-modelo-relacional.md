@@ -81,9 +81,20 @@ Por lo anterior, si se desea obtener este beneficio, la PK de una tabla puede se
 
 ### 3.3.1.4. Tipos de llaves primarias
 
-- **Llave primaria natural:** Son representadas por atributos nativos o propios de una entidad. Un atributo nativo es aquél que tiene significado para las reglas de negiocio del caso de estudio.
+- **Llave primaria natural:** Son representadas por atributos nativos o propios de una entidad. Un atributo nativo es aquél que tiene significado para las reglas de negocio del caso de estudio.
 
-- **Llave primaria artificial:** Es representada por un campo que se agrega a una tabla que no tiene significado alguno para las reglas de negocio, su única función es actual como llave primaria que cumple con todos los requisitos anteriores:
+- **Llave primaria artificial:** Es representada por un campo que se agrega a una tabla que no tiene significado alguno para las reglas de negocio, su única función es actuar como llave primaria que cumple con todos los requisitos anteriores:
+
   - Campo numérico, entero y consecutivo (mejora el desempeño del índice).
   - Valores únicos y no nulos.
   - Su valor nunca es modificado.
+
+- **Llave primaria compuesta:** Una PK compuesta está formada por más de un atributo. El valor de la PK compuesta se forma por la **combinación** de los valores de los N campos que la integran. Para determinar si un registro está duplicado se deberá buscar la existencia de la combinación considerando valores y orden de los valores en la combinación, en la tabla.
+
+## 3.3.2. Restricciones de referencia (Llave foránea, FK)
+
+Para poder realizar la implementación de los tipos de relaciones existentes entre 2 entidades, el modelo relacional hace uso del concepto de Llave Foránea (Foreign Key, FK).
+
+- Una FK es un campo dentro de una tabla B que hace referencia a la PK de una tabla A, o en su defecto a un atributo con restricción **UNIQUE**.
+- Típicamente a la tabla que propaga la PK se le conoce como **tabla padre**, y a la tabla sobre la que se propaga la PK se le conoce como **tabla hija**.
+- Este tipo de restricciones se emplea para relacionar entidades.
