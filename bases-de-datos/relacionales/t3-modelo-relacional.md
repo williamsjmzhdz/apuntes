@@ -98,3 +98,17 @@ Para poder realizar la implementación de los tipos de relaciones existentes ent
 - Una FK es un campo dentro de una tabla B que hace referencia a la PK de una tabla A, o en su defecto a un atributo con restricción **UNIQUE**.
 - Típicamente a la tabla que propaga la PK se le conoce como **tabla padre**, y a la tabla sobre la que se propaga la PK se le conoce como **tabla hija**.
 - Este tipo de restricciones se emplea para relacionar entidades.
+
+### 3.3.2.1. Variantes
+
+- Si la PK de la tabla padre es compuesta, entonces ambos atributos pertenecientes a la PK compuesta se propagan a la tabla B.
+
+- La FK propagada por la tabla padre puede formar parte de la PK de la tabla hija, representando así tanto una FK como una PK; es importante tener en cuenta que si se propaga como parte de la PK de la tabla hija, entonces la FK no podrá repetirse y solo será asociada a un registro de la tabla hija (relación 1:1).
+
+### 3.3.2.2. Consideraciones
+
+- El RDBMS verificará de manera automática que el valor asignado a una FK en la tabla hija exista como PK en la tabla padre. En caso de no ser así, se generará el error "Referential Integrity Violation".
+
+- Si se intenta eliminar un registro de la tabla padre que está relacionado con uno o más registros en la tabla hija, se producirá un error de violación de restricción con el mensaje _Registros en la tabla hija encontrados_.
+
+- Si se agrega a la tabla hija un registro con la cuya FK no existe como PK en la tabla padre, se producirá un error de violación de integridad con el mensaje _Registro en la tabla padre no encontrado._
