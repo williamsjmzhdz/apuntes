@@ -19,7 +19,7 @@ El encapsulamiento es un concepto fundamental en programación orientada a objet
 
 - **Mejora la seguridad**
 
-  - AL restringer el acceso a los datos internos, se reduce el riesgo de manipulación indebida.
+  - Al restringer el acceso a los datos internos, se reduce el riesgo de manipulación indebida.
 
 - **Mejora la modularidad**
 
