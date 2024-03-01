@@ -45,10 +45,10 @@ Las restricciones, como se comentó anteriormente, representan uno de los elemen
 
 Una llave primaria (PK) es una columna o conjunto de columnas cuyos(s) valor(es) identifican de manera única a un registro.
 
-El RDBMS implementa esta restricción haciendo uso de los 2 siguientes elementos:
+El RDBMS implementa esta restricción haciendo uso de las 2 siguientes restricciones de integridad:
 
-- Un índice tipo UNIQUE.
-- Una restricción de integridad NOT NULL.
+- UNIQUE.
+- NOT NULL.
 
 Los siguientes puntos permiten identificar a una PK de una tabla:
 
@@ -107,8 +107,49 @@ Para poder realizar la implementación de los tipos de relaciones existentes ent
 
 ### 3.3.2.2. Consideraciones
 
-- El RDBMS verificará de manera automática que el valor asignado a una FK en la tabla hija exista como PK en la tabla padre. En caso de no ser así, se generará el error "Referential Integrity Violation".
+- El RDBMS verificará de manera automática que el valor asignado a una FK en la tabla hija exista como PK en la tabla padre. En caso de no ser así, se generará el error **_Referential Integrity Violation_**.
 
-- Si se intenta eliminar un registro de la tabla padre que está relacionado con uno o más registros en la tabla hija, se producirá un error de violación de restricción con el mensaje _Registros en la tabla hija encontrados_.
+- Si se intenta eliminar un registro de la tabla padre que está relacionado con uno o más registros en la tabla hija, se producirá un error de violación de restricción con el mensaje **_Registros en la tabla hija encontrados_**.
 
-- Si se agrega a la tabla hija un registro con la cuya FK no existe como PK en la tabla padre, se producirá un error de violación de integridad con el mensaje _Registro en la tabla padre no encontrado._
+- Si se agrega a la tabla hija un registro con la cuya FK no existe como PK en la tabla padre, se producirá un error de violación de integridad con el mensaje **_Registro en la tabla padre no encontrado_**.
+
+## 3.3.3. Restricciones de integridad
+
+Ayudan a mantener el estado correcto o verídico de los datos (consistencia e integridad). Son verificadas por el RDBMS de forma automática.
+
+Tipos de restricciones de integridad:
+
+- NOT NULL
+- CHECK
+- UNIQUE
+
+### 3.3.3.1 NOT NULL
+
+Al asignarlo a un atributo, garantiza que dicho atributo no tenga valores nulos (campo obligatorio). Un valor nulo significa la ausencia de valor (no hay dato); valor nulo NO significa lo siguiente:
+
+- Cadena vacía ("")
+- Un cero (0)
+- Un espacio (" ")
+- Una cadena null ("null")
+
+Por lo tanto, cuando se tiene un valor nulo nos referimos a nada, una casilla vacía, sin dato.
+
+Para representar la ausencia de valor al mostrar una tabla de datos, **algunos** RDBMS muestran la palabra **null** pero no es que dicha palabra esté almacenada, es solo su representación gráfica al ser mostrado a un usuario para no dejar la casilla en blanco.
+
+Si se omite el valor en un atributo NOT NULL, se obtendría de nuevo un **_Error de violación de restricción_**
+
+### 3.3.3.2 CHECK
+
+CHECK verifica algo, y es implementada con una expresión booleana. Normalmente se implementa a un atributo de una tabla para verificar que se inserten valores correctos (valores dentro de un rango, etc.), de lo contrario se generaría un **_Error de violación de restricción_**
+
+Ejemplo:
+
+```SQL
+check (sueldo_mensual >= 5000 and sueldo_mensual <= 999999)
+```
+
+Es importante mencionar que la expresión booleana tiene acceso a atributos del mismo registro que se está insertando, sin embargo, no tiene mayor alcance, es decir, no tiene acceso a datos de otros registros de la tabla o a registros de otras tablas.
+
+### 3.3.3.3. UNIQUE
+
+Como su nombre lo indica, es una restricción que al aplicarse a un atributo, evita que ese atributo tenga valores duplicados. A diferencia de la restricción PK, la restricción UNIQUE puede tener valores nulos (obvio, solo en caso de que no se aplique también la restricción NOT NULL al atributo)
