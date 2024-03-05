@@ -1,10 +1,87 @@
 # 13.1 Abstracción
 
-La abstracción en la programación orientada a objetos (POO) es un principio fundamental que permite a los desarrolladores enfocarse en lo que un objeto hace, en lugar de cómo lo hace, escondiendo los detalles de implementación complejos detrás de una interfaz simple. Es una técnica que busca reducir la complejidad de los sistemas dividiéndolos en partes más pequeñas y manejables, permitiendo así un diseño más modular y escalable del software.
+La abstracción es uno de los cuatro pilares fundamentales de la Programación Orientada a Objetos (POO), junto con la encapsulación, la herencia y el polimorfismo. La abstracción se trata de ocultar los detalles complejos y mostrar solo las características esenciales de un objeto o sistema. En esencia, permite al desarrollador centrarse en lo que hace un objeto sin necesidad de conocer cómo lo logra.
 
-# 13.2. Características y funcionalidades
+## 13.1.2. Cómo funciona la abstracción
 
-- Simplificación: Permite a los programadores tratar con objetos de alto nivel, ignorando los detalles de bajo nivel.
-- Ocultamiento de detalles: Los detalles de implementación de una clase u objeto se ocultan detrás de una interfaz bien definida.
-- Reusabilidad: Al centrarse en interfaces generales e individuales, se fomenta la creación de código que puede reutilizarse en diferentes partes del programa o incluso en diferentes proyectos.
-- Adaptabilidad/Flexibilidad: La abstracción hace que el software sea más adaptable y flexible a los cambios, ya que las modificaciones internas a una clase no afectan a las partes del código que utilizan esa clase, siempre y cuando la interfaz se mantenga constante.
+La abstracción se puede implementar de dos manera principales en la POO:
+
+1.- **Clases Abstractas**: Una clase declarada como abstracta no puede ser instanciada directamente, y está destinada a ser subclaseada por otras clases. Puede contener métodos abstractos (sin implementación) que pueden ser implementados por las subclases, así como métodos con implementación completa.
+
+2.- **Interfaces**: Una interfaz es un contrato que define un conjunto de métodos sin implementaciones. Las clases que implementar una interfaz deben proporcionar implementaciones para todos los métodos definidos en la interfaz.
+
+Ambas, clases abstractas e interfaces, se utilizan para definir un nivel alto de abstracción, dejando los detalles de implementación a las clases concretas que heredan la clase abstracta o implementan la interfaz.
+
+## 13.1.3. Clases Abstractas vs Interfaces
+
+La elección para utilizar una interfaz o una clase abstracta para implementar la abstracción en Java depende de varios factores relacionados con el diseño de tu aplicación. A continuación se presentan algunas pautas generales para decidir cuál es la mejor opción en diferentes contextos:
+
+**Utiliza una Interfaz cuando**:
+
+- **Esperas que clases no relacionadas implementen tu interfaz.** Las interfaces son ideales para definir un contrato común para clases que no comparten una jerarquía de herencia.
+- **Necesitas especificar el comportamiento de un tipo particular de dato, pero no estás preocupado por quién implementa sus comportamientos.**
+- **Quieres aprovechar la herencia múltiple de tipo.** Java no permite la herencia múltiple de clases, pero una clase puede implementar múltiples interfaces, lo que permite a los objetos heredar varios comportamientos de interfaz.
+
+**Utiliza una Clase Abstracta cuando**:
+
+- **Quieres compartir código entre varias clases estrechamente relacionadas.** Las clases abstractas permiten definir métodos con implementaciones predeterminadas, lo que puede ahorrar tiempo y reducir la duplicación de código.
+
+- **Planeas realizar actualizaciones en el futuro para las clases derivadas.** Al modificar una clase abstracta, puedes cambiar el comportamiento base de todas las subclases que la heredan, lo que puede ser más eficiente que modificar múltiples interfaces o implementaciones de clases
+
+## 13.1.4. Ejemplo en código Java
+
+Supongamos que estamos desarrollando un sistema para gestionar vehículos en un juego. Todos los vehículos deben ser capaces de acelerar y frenar, pero la manera exacta en que estos comportamientos se llevan a cabo varía según el tipo de vehículo.
+
+Primero, definimos una interfaz '**Vehículo**' que declare los métodos '**acelerar**' y '**frenar**'.
+
+```java
+public interface Vehiculo {
+  void acelerar();
+  void frenar();
+}
+```
+
+Luego, implementamos esta interfaz en clases concretas que representan diferentes tipos de vehículos, como un '**Coche**' y una '**Motocicleta**'.
+
+```java
+public class Coche implements Vehiculo {
+  @Override
+  public void acelerar() {
+    System.out.println("El coche acelera suavemente.");
+  }
+
+  @Override
+  public void frenar() {
+    System.out.println("El coche frena con los frenos de disco.");
+  }
+}
+
+public class Motocicleta implements Vehiculo {
+  @Override
+  public void acelerar() {
+    System.out.println("El motocicleta acelera rápidamente.");
+  }
+
+  @Override
+  public void frenar() {
+    System.out.println("La motocicleta frena con los discos de tambor.");
+  }
+}
+```
+
+Finalmente, podemos usar estas clases a través de la abstracción proporcionada por la interfaz '**Vehiculo**' sin preocuparnos por los detalles específicos de cómo cada vehículo acelera o frena.
+
+```java
+public class Main {
+  public static void main(String[] args) {
+    Vehiculo miCoche = new Coche();
+    Vehiculo miMotocicleta = new Motocicleta();
+
+    miCoche.acelerar();
+    miMotocicleta.acelerar();
+
+    miCoche.frenar();
+    miMotocicleta.frenar();
+  }
+}
+```
