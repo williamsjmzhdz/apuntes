@@ -19,14 +19,13 @@ La elección para utilizar una interfaz o una clase abstracta para implementar l
 **Utiliza una Interfaz cuando**:
 
 - **Esperas que clases no relacionadas implementen tu interfaz.** Las interfaces son ideales para definir un contrato común para clases que no comparten una jerarquía de herencia.
-- **Necesitas especificar el comportamiento de un tipo particular de dato, pero no estás preocupado por quién implementa sus comportamientos.**
 - **Quieres aprovechar la herencia múltiple de tipo.** Java no permite la herencia múltiple de clases, pero una clase puede implementar múltiples interfaces, lo que permite a los objetos heredar varios comportamientos de interfaz.
 
 **Utiliza una Clase Abstracta cuando**:
 
-- **Quieres compartir código entre varias clases estrechamente relacionadas.** Las clases abstractas permiten definir métodos con implementaciones predeterminadas, lo que puede ahorrar tiempo y reducir la duplicación de código.
-
-- **Planeas realizar actualizaciones en el futuro para las clases derivadas.** Al modificar una clase abstracta, puedes cambiar el comportamiento base de todas las subclases que la heredan, lo que puede ser más eficiente que modificar múltiples interfaces o implementaciones de clases
+- **Estado compartido.** Las clases abstractas pueden tener campos de estado, permitiendo compartir no solo comportamiento (métodos), sino también datos (estado) entre varias subclases. Las interfaces no pueden tener campos de estado que no sean static y final.
+- **Métodos Constructores y Destructores:** Las clases abstractas pueden definir constructores y destructores, lo cual es útil para inicializar correctamente cualquier estado necesario antes de que un objeto se utilice o para limpiar recursos antes de que el objeto se destruya. Las interfaces no pueden tener constructores.
+- **Acceso más Restrictivo para Métodos:** Las clases abstractas permiten definir métodos con diferentes niveles de acceso (private, protected, public), mientras que los métodos en las interfaces son públicamente accesibles (aunque los métodos private fueron introducidos en interfaces en Java 9, su uso es más limitado comparado con las clases).
 
 ## 13.1.4. Ejemplo en código Java
 
