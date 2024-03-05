@@ -153,3 +153,50 @@ Es importante mencionar que la expresión booleana tiene acceso a atributos del 
 ### 3.3.3.3. UNIQUE
 
 Como su nombre lo indica, es una restricción que al aplicarse a un atributo, evita que ese atributo tenga valores duplicados. A diferencia de la restricción PK, la restricción UNIQUE puede tener valores nulos (obvio, solo en caso de que no se aplique también la restricción NOT NULL al atributo)
+
+### 3.3.3.4. Verificación empleando Triggers
+
+- Un trigger es un programa PL/SQL que se ejecuta cuando ocurre algún evento, por ejemplo, antes o después de: insertar, modificar, eliminar, etc.
+
+# 3.5 índices
+
+Un índice es una estructura de datos, por lo tanto, requiere almacenamiento. El objetivo de un índice es incrementar el desempeño de una base de datos al realizar extracción o explotación de los datos en el menor tiempo posible; esto se logra al minimizar el número de lecturas que el RDBMS tendría que realizar a cada uno de los archivos de datos asociados a una table.
+
+Un índice se emplea principalmente para:
+
+- Localizar datos sin tener que recorrer todo el contenido de una tabla.
+- Realizar el ordenamiento de datos de uno o más campos.
+- Garantizar la no duplicidad de los valores de un campo empleados en especial en la PK.
+
+## 3.5.1. Elementos de un índice
+
+Un índice está conformado por dos elementos:
+
+- Una llave: valor del atributo indexado (por ejemplo, una PK)
+- Un valor: dirección en disco donde se encuentra el registro solicitado. En Oracle se conoce como **rowid**.
+
+### 3.5.2. Rowids en Oracle
+
+Oracle utiliza una codificación en base 64 para representar las direcciones físicas de cada registros haciendo uso de una cadena de 8 caracteres. El DBMS agrega una columna a cada tabla llamda **ROW_ID** en la que se almacena esta cadena.
+
+Un rowid está compuesto por cuatro elementos:
+
+- **OOOOOO**: Data Object Number ID que identifica el _segmento_ (grupo de datafiles) de la base de datos donde se encuentra el regitro.
+- **FFF**: Número de datafile que contiene el registro.
+- **BBBBBB**: El bloque de datos que contiene al registro. Los números de bloques son relativos al datafile al que pertenecen, no al tablespace
+- **RRR**: El número de registro en el bloque.
+
+Un rowid representa la **estrategia más eficiente** para localizar un registro en la base de datos.
+
+### 3.5.3. Cuándo emplear índices
+
+Los siguientes puntos representan recomendaciones generales para decidir si a un atributo se le agrega o no un índice:
+
+- Se realizan consultas frecuentes utilizando dicho atributo en el predicado (como condición).
+- El dominio del atributo es amplio; no tiene sentido indexar un atributo con solo dos posibles valores, pues habría muchos rowids en una sola llave.
+- El número de registros esperados como respuesta es pequeño (entre 2% y 4% del número de registros total de la tabla). En términos prácticos es lo mismo que el punto anterior, pero visto en términos de número de registros en vez de número de rowids.
+- El número de registros de la tabla es grande; haciendo una analogía con un libro, no sirve de nada un índice para un libro con tres páginas. El número de registros es relativo pero un número aproximado son 5000 registros para que el índice se use.
+
+#### 3.5.3.1. Consideraciones
+
+Hay que tener en cuenta que a mayor número de índices, el tiempo requerido para hacer una inserción, eliminación o una modificación de registros puede llegar a aumentar; esto debido a que el índice debe reestructurarse tras cada operación (similar al índice de un libro si se agrega, modifica o elimina una página/tema), por lo que al tener muchos índices, habría que hacer mucho trabajo de reestructuración, además de que ocuparíamos más memoria para almacenar muchos índices.
