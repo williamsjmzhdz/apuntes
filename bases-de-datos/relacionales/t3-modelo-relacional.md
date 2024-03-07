@@ -166,7 +166,7 @@ Un índice se emplea principalmente para:
 
 - Localizar datos sin tener que recorrer todo el contenido de una tabla.
 - Realizar el ordenamiento de datos de uno o más campos.
-- Garantizar la no duplicidad de los valores de un campo empleados en especial en la PK.
+- Garantizar la no duplicidad de los valores de un campo empleados, en especial en la PK.
 
 ## 3.5.1. Elementos de un índice
 
@@ -177,13 +177,13 @@ Un índice está conformado por dos elementos:
 
 ### 3.5.2. Rowids en Oracle
 
-Oracle utiliza una codificación en base 64 para representar las direcciones físicas de cada registros haciendo uso de una cadena de 8 caracteres. El DBMS agrega una columna a cada tabla llamda **ROW_ID** en la que se almacena esta cadena.
+Oracle utiliza una cadena de 8 caracteres para representar las direcciones físicas de cada registro. El DBMS agrega una columna a cada tabla llamda **ROW_ID** en la que se almacena esta cadena.
 
 Un rowid está compuesto por cuatro elementos:
 
 - **OOOOOO**: Data Object Number ID que identifica el _segmento_ (grupo de datafiles) de la base de datos donde se encuentra el regitro.
 - **FFF**: Número de datafile que contiene el registro.
-- **BBBBBB**: El bloque de datos que contiene al registro. Los números de bloques son relativos al datafile al que pertenecen, no al tablespace
+- **BBBBBB**: Los números de bloques son relativos al datafile al que pertenecen, no al tablespace
 - **RRR**: El número de registro en el bloque.
 
 Un rowid representa la **estrategia más eficiente** para localizar un registro en la base de datos.
@@ -195,8 +195,36 @@ Los siguientes puntos representan recomendaciones generales para decidir si a un
 - Se realizan consultas frecuentes utilizando dicho atributo en el predicado (como condición).
 - El dominio del atributo es amplio; no tiene sentido indexar un atributo con solo dos posibles valores, pues habría muchos rowids en una sola llave.
 - El número de registros esperados como respuesta es pequeño (entre 2% y 4% del número de registros total de la tabla). En términos prácticos es lo mismo que el punto anterior, pero visto en términos de número de registros en vez de número de rowids.
-- El número de registros de la tabla es grande; haciendo una analogía con un libro, no sirve de nada un índice para un libro con tres páginas. El número de registros es relativo pero un número aproximado son 5000 registros para que el índice se use.
+- El número de registros de la tabla es grande; haciendo una analogía con un libro, no sirve de nada un índice para un libro con tres páginas. El número de registros es relativo, pero un número aproximado son 5000 registros para que el índice se use.
 
 #### 3.5.3.1. Consideraciones
 
 Hay que tener en cuenta que a mayor número de índices, el tiempo requerido para hacer una inserción, eliminación o una modificación de registros puede llegar a aumentar; esto debido a que el índice debe reestructurarse tras cada operación (similar al índice de un libro si se agrega, modifica o elimina una página/tema), por lo que al tener muchos índices, habría que hacer mucho trabajo de reestructuración, además de que ocuparíamos más memoria para almacenar muchos índices.
+
+### 3.5.4. Tipos de índices
+
+Cada tipo de índices define una estrategia y una serie de algoritmos para escaneos de la forma más eficiente posible. Independientemente de su tipo el objetivo es el mismo: escanear para recuperar rowids.
+
+- HASH Index
+- B+ Tree Index (Balanced Trees)
+- Bitmap Index
+
+#### 3.5.4.1. Hash Index
+
+Es un índice basado en la estructura de datos Hashtable o Hashmap, donde para cada llave se calcula su código hash haciendo uso de la función hash sus componentes son los siguientes:
+
+- Función hash: función que recibe como entrada el valor del atributo indexado (llave) y produce como salida el hash code.
+- Hash code: índice del arreglo del hashmap donde se encuentra el rowid.
+
+En una misma localidad del arreglo del hashmap puede haber varios rowids, cuando esto ocurre, se hace uso de una lista de rowids y se retorna la lista completa en caso de búsqueda de rowids.
+
+A nivel general, los índices basados en tablas hash son muy eficientes realizando búsquedas, sin embargo, cuentan con las siguientes deventajas, lo que hace que este tipo de índice no sea muy utilizado en la práctica.
+
+- No soporta ordenamiento de datos.
+- No soporta consultas con operadores lógicos como **>, <, >=, <=**. Las búsquedas en una tabla hash siempre hacen uso del operador de igualdad **=**.
+- Para tablas grandes se requiere mayor cantidad de memoria para construir la tabla hash.
+- No soporta valores nulos. Columnas indexadas con valores nulos no son incluidas en este tipo de índice. Esto implica que si se intenta ejecutar la siguiente sentencia que justamente realice la búsqueda de valores nulos, el manejador no hará uso del índice debido a que la tabla hash no puede contener llaves nulas. El manejador tendrá que **recorrer toda la tabla** y encontrar los valores nulos.
+
+```sql
+select * from cliente where email is null
+```
