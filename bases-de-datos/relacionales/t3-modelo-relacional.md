@@ -228,3 +228,25 @@ A nivel general, los índices basados en tablas hash son muy eficientes realizan
 ```sql
 select * from cliente where email is null
 ```
+
+#### 3.5.4.2. Bitmap Index
+
+Los índices tipo bitmap son una técnica de indexación utilizada en entornos donde las columnas de datos tienen un número limitado de valores únicos (dominio pequeño), como en atributos booleanos, categorias fijas o rangos de valores pequeños. Esta técnica es particularmente eficaz en bases de datos de almacenes de datos (data warehouses) y en sistemas donde las operaciones de lectura son más mucho más frecuentes que las operaciones de escritura.
+
+##### 3.5.4.2.1 Funcionamiento
+
+Un índice bitmap funciona creando una matriz (arreglo de 2 dimensiones), donde cada columna representa un posible valor del atributo indexado, y cada fila representa un registro de la tabla en la base de datos.
+
+Un bit encendido (un 1) en una posición específica del bitmap, representa que el registro correspondiente a la fila del bitmap donde está el bit encendido, tiene el valor correspondiente a la columna del bitmap donde está el bit encencido, y un bit apagado (0) indica lo contrario.
+
+Por lo anterior, los índices bitmap no almacenan directamente los **rowids** como parte del bitmap. Lo que proporcionan es una manera eficiente de determinar qué registros de la tabla satisfacen ciertos criterios de búsqueda basados en el atributo indexado. Por lo tanto, la obtención de los **rowids** es un mecanismo adicional que se basa en mapear los resultados del bitmap (los registros que cumplen con las condiciones de búsqueda) a los **rowids** específicos; esto lo hace el RDBMS de forma implícita. Algunos RDBMS pueden mantener una estructura de mapeo directo que asocia cada posición de bit en un bitmap con un **rowid** específico. Esta estructura puede ser una tabla o arreglo adicional donde el índice en el arreglo corresponde a la posición del bit en el bitmap (bitmap = arreglo dentro del arreglo o segundo nivel de la matriz) y el valor almacenado en ese índice es el **rowid** real. Cuando se accede a un bit específico del bitmap, se utiliza su posición para buscar en esta estructura de mapeo y obtener el **rowid** correspondiente.
+
+##### 3.5.4.2.2. Ventajas
+
+- Soporta valores nulos
+- No requiere mucho almacenamiento y memoria para construirlo, ya que está compuesto de bits.
+- Soporta atributos con dominio bajo (no importa si se repiten mucho los valores en los registros de la tabla).
+
+##### 3.5.4.2.2. Desventajas
+
+- No soporta ordenamiento de rowids (podrían estar ordenados los valores, pero no los rowids, que son los que interesa ordenar).
