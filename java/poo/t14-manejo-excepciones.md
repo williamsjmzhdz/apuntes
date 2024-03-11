@@ -6,10 +6,10 @@ El manejo de excepciones y errores en Java es una parte fundamental de escribir 
 
 - **Checked Exceptions**: Excepciones que son comprobadas en tiempo de compilación. Son situaciones de las que el programa podría recuperarse. Ejemplos: '**IOException**', '**SQLException**'.
 
-- **Unchecked Exceptions**: No son comprobadas en tiempo de compilación. Incluyen errores de lógico que los programas no deberían intentar recuperarse. Se dividen en:
+- **Unchecked Exceptions**: No son comprobadas en tiempo de ejecución. Incluyen errores de lógica de los que los programas no deberían intentar recuperarse. Se dividen en:
 
   - **Errores**: Problemas graves que no deberían ser manejados por la aplicación. Ejemplos: '**OutOfMemoryError**', '**StackOverflowError**'.
-  - **Runtime Exceptions**: Errores de programación que podrían haberse evitado. Ejemplos: '**NullPointerException**', '**IndexOutOfBounceException**'.
+  - **Runtime Exceptions**: Errores de programación que podrían haberse evitado con una programación más cuidadosa. Ejemplos: '**NullPointerException**', '**IndexOutOfBounceException**'.
 
 ## 14.1.2. Manejo de excepciones
 
