@@ -274,3 +274,7 @@ Los Árboles B+ son una estructura de datos esencial en el manejo de bases de da
 - **Acceso balanceado:** Debido a que todos los rowids se encuentran en las hojas y todos los caminos desde la raíz hasta las hojas tiene la misma longitud, los árboles B+ son inherentemente balanceados. Esto asegura que el tiempo de acceso sea predecible y uniforme, sin importar el valor de la clave buscada.
 
 - **Recorrido eficiente:** Los nodos hoja están enlazadas, lo que facilita el recorrido secuencial de los elementos almacenados. Esta característica es especialmente útil para operaciones que requieran procesar rangos de claves de manera eficiente (>, <, >=, <=).
+
+##### 3.5.4.3.3. Desventajas
+
+- No soporta valores nulos: si inserta un valor nulo, el índice no se modifica en absoluto, sin embargo, si se hace una búsqueda basada en valores nulos, entonces el manejador no utiliza el índice y escanea toda la tabla (table access full).
