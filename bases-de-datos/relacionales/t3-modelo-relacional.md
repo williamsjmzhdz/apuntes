@@ -209,7 +209,7 @@ Cada tipo de índices define una estrategia y una serie de algoritmos para escan
 - B+ Tree Index (Balanced Trees)
 - Bitmap Index
 
-#### 3.5.4.1. Hash Index
+### 3.5.4.1. Hash Index
 
 Es un índice basado en la estructura de datos Hashtable o Hashmap, donde para cada llave se calcula su código hash haciendo uso de la función hash sus componentes son los siguientes:
 
@@ -229,7 +229,7 @@ A nivel general, los índices basados en tablas hash son muy eficientes realizan
 select * from cliente where email is null
 ```
 
-#### 3.5.4.2. Bitmap Index
+### 3.5.4.2. Bitmap Index
 
 Los índices tipo bitmap son una técnica de indexación utilizada en entornos donde las columnas de datos tienen un número limitado de valores únicos (dominio pequeño), como en atributos booleanos, categorias fijas o rangos de valores pequeños. Esta técnica es particularmente eficaz en bases de datos de almacenes de datos (data warehouses) y en sistemas donde las operaciones de lectura son más mucho más frecuentes que las operaciones de escritura.
 
@@ -250,3 +250,27 @@ Por lo anterior, los índices bitmap no almacenan directamente los **rowids** co
 ##### 3.5.4.2.2. Desventajas
 
 - No soporta ordenamiento de rowids (podrían estar ordenados los valores, pero no los rowids, que son los que interesa ordenar).
+
+### 3.5.4.3. Índices basados en árboles B+ (B = Balanced)
+
+Los Árboles B+ son una estructura de datos esencial en el manejo de bases de datos y sistemas de archivos, diseñados para facilitar el almacenamiento, búsqueda y manejo de datos de manera eficiente y ordenada. Aquí detallamos sus características y funcionalidades clave.
+
+##### 3.5.4.3.1. Características principales
+
+- **Estructura ordenada:** Los Árboles B+ organizan los datos en una estructura de árbol, manteniendo los elementos de manera ordenada para facilitar búsquedas rápidas.
+
+- **Eficiencia en inserción y eliminación:** Permiten añadir y quitar elementos de manera eficiente, optimizando el manejo de datos dinámicos.
+
+- **Crecimiento horizontal:** A diferencia de otros árboles, los B\* crecen hacia los lados, manteniendo su profundidad lo más baja posible. Esto reduce significativamente el número de operaciones de entrada/salida (I/O) necesarias para acceder a un elemento, mejorando el rendimiento en la recuperación de datos.
+
+- **Capacidad de nodos:** Cada nodo tiene una capacidad finita, generalmente alineada con el tamaño de un bloque de datos en el sistema de almacenamiento, permitiendo que el contenido de un nodo se lea en una sola operación I/O.
+
+- **Nodos hoja y nodos intermedios:**
+  - **Nodos hoja:** Contienen las claves (keys) que son los valores de la columna indexada y sus correspondientes identificadores de fila (rowid), permitiendo el acceso directo a los datos.
+  - **Nodos intermedios:** Almacenan las claves (keys) y apuntadores hacia otros nodos, guiando la búsqueda desde la raíz hacia las hojas.
+
+##### 3.5.4.3.2. Ventajas del Árbol B+
+
+- **Acceso balanceado:** Debido a que todos los rowids se encuentran en las hojas y todos los caminos desde la raíz hasta las hojas tiene la misma longitud, los árboles B+ son inherentemente balanceados. Esto asegura que el tiempo de acceso sea predecible y uniforme, sin importar el valor de la clave buscada.
+
+- **Recorrido eficiente:** Los nodos hoja están enlazadas, lo que facilita el recorrido secuencial de los elementos almacenados. Esta característica es especialmente útil para operaciones que requieran procesar rangos de claves de manera eficiente (>, <, >=, <=).
