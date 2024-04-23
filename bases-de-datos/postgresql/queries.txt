@@ -1,0 +1,29 @@
+ELIMINAR TABLA
+    DROP TABLE IF EXISTS table1, table2, table3,...;
+
+CREAR TABLA
+    CREATE TABLE [TABLE_NAME] (
+        ATTRIBUTE1 TYPE [NULL]|[NOT NULL],
+        ATTRIBUTE2 TYPE [NULL]|[NOT NULL],
+        ATTRIBUTE3 TYPE [NULL]|[NOT NULL],
+        PRIMARY KEY ([ATTRIBUTE_NAME]),
+        FOREIGN KEY ([ATTRIBUTE_NAME]) REFERENCES [TABLE_NAME]([ATTRIBUTE_NAME_IN_TABLE])
+    );
+
+VER TODAS LAS TABLAS EN LA BD
+    SELECT table_schema, table_name
+    FROM information_schema.tables
+    WHERE table_schema NOT IN ('information_schema', 'pg_catalog')
+    AND table_type = 'BASE TABLE'
+    ORDER BY table_schema, table_name;
+
+CONSTRAINTS
+    CONSTRAINT pk_[table_name] PRIMARY KEY (column_name) | CONSTRAINT pk_users PRIMARY KEY (user_id)
+    CONSTRAINT fk_[child_table_name]_[parent_table_name]_[column_name] FOREIGN KEY (column_name) REFERENCES parent_table(parent_column_name) | CONSTRAINT fk_orders_users_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
+    CONSTRAINT uc_[table_name]_[column_name] UNIQUE (column_name) | CONSTRAINT uc_users_email UNIQUE (email)
+    CONSTRAINT ck_[table_name]_[condition_description] CHECK (condition) | CONSTRAINT ck_users_age CHECK (age >= 18)
+    CONSTRAINT pk_or_uc_[table_name]_[column1]_[column2] PRIMARY KEY (column1, column2) | CONSTRAINT pk_user_roles_user_id_role_id PRIMARY KEY (user_id, role_id)
+    ALTER TABLE [table_name] ALTER COLUMN [column_name] SET DEFAULT [default_value] | ALTER TABLE users ALTER COLUMN status SET DEFAULT 'active'
+
+
+

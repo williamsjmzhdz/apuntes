@@ -1,0 +1,14 @@
+INICIAR INSTANCIA
+pg_ctl -D /opt/postgresql-16.2/pgsql/data -l /home/postgres/logs/postgreSQL.log start 2>&1 &
+
+DETENER INSTANCIA
+pg_ctl -D /opt/postgresql-16.2/pgsql/data stop
+
+CAMBIAR USUARIO POSTGRES
+su -l postgres [pass=postgres]
+
+INICIAR SESION EN BD COMO USUARIO POSTGRES
+psql
+
+INICIAR SESION EN BD DIPLOBD COMO USUARIO ADMINDIPLOMADO
+psql -U admindiplomado -d dipbd; [pass=admin]
